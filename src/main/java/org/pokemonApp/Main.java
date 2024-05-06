@@ -27,16 +27,12 @@ public class Main {
         }
     }
 
-    private static void menu(PokemonData p) throws FileNotFoundException {
+    private static void menu(PokemonData p){
         Scanner tc = new Scanner(System.in);
         informacionPokemon(p);
-        try {
-            verImagen(p);
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
+        Imagen.descargarImagen(p);
         OggPlayer.descargarOgg(p);
-        System.out.println("Salir(0)| Listar movimientos(1) | Audio(2-No funciona) | ");
+        System.out.println("Salir(0)| Listar movimientos(1) | Audio(2-No funciona)");
         int opcion = tc.nextInt();
         switch (opcion){
             case 0:
@@ -51,26 +47,8 @@ public class Main {
         }
     }
 
-    private static void verImagen(PokemonData p) throws FileNotFoundException {
-        //Descargar imagen
-        AsyncHttpClient client = Dsl.asyncHttpClient();
-        FileOutputStream stream = new FileOutputStream("src/main/resources/image.png");
-        client.prepareGet(p.sprites.versions.generationV.blackWhite.frontDefault).execute(new AsyncCompletionHandler<FileOutputStream>() {
-
-            @Override
-            public AsyncHandler.State onBodyPartReceived(HttpResponseBodyPart bodyPart)
-                    throws Exception {
-                stream.getChannel().write(bodyPart.getBodyByteBuffer());
-                return AsyncHandler.State.CONTINUE;
-            }
-
-            @Override
-            public FileOutputStream onCompleted(Response response)
-                    throws Exception {
-                return stream;
-            }
-        });
-
+    private static void verImagen(PokemonData p) {
+        //Imagen.descargarImagen(p);
     }
 
     private static void listarMovimientos(PokemonData p){
@@ -80,13 +58,23 @@ public class Main {
         }
     }
 
+    private static void listarAbilidades(PokemonData p){
+        int contador = 0;
+        System.out.print("Habilidades posibles --> ");
+        for (PokemonData.AbilitySlot i : p.abilities){
+            System.out.print(contador+++":"+i.ability.name+" ");
+        }
+        System.out.println();
+    }
+
     private static void informacionPokemon(PokemonData p){
         System.out.printf("Nombre pokemon(nº Pokedex): %s(%s)\n", p.name,p.id);
+        listarAbilidades(p);
         System.out.print("Tipo(s): ");
         for(PokemonData.TypeSlot i : p.types){
             System.out.print(i.type.name+" ");
         }
-        System.out.println("\nStats: ");
+        System.out.println("\nStats Base: ");
         for(PokemonData.Stat s : p.stats){
             System.out.println("\t"+s.stat.name+": "+s.baseStat);
         }

@@ -60,25 +60,29 @@ public class OggPlayer {
         }
     }
 
-    public static void descargarOgg(PokemonData p) throws FileNotFoundException {
+    public static void descargarOgg(PokemonData p){
         //Descargar ogg
-        AsyncHttpClient client = Dsl.asyncHttpClient();
-        FileOutputStream stream = new FileOutputStream("src/main/resources/cry.ogg");
-        client.prepareGet(p.cries.latest).execute(new AsyncCompletionHandler<FileOutputStream>() {
+        try {
+            AsyncHttpClient client = Dsl.asyncHttpClient();
+            FileOutputStream stream = new FileOutputStream("src/main/resources/cry.ogg");
+            client.prepareGet(p.cries.latest).execute(new AsyncCompletionHandler<FileOutputStream>() {
 
-            @Override
-            public AsyncHandler.State onBodyPartReceived(HttpResponseBodyPart bodyPart)
-                    throws Exception {
-                stream.getChannel().write(bodyPart.getBodyByteBuffer());
-                return AsyncHandler.State.CONTINUE;
-            }
+                @Override
+                public AsyncHandler.State onBodyPartReceived(HttpResponseBodyPart bodyPart)
+                        throws Exception {
+                    stream.getChannel().write(bodyPart.getBodyByteBuffer());
+                    return AsyncHandler.State.CONTINUE;
+                }
 
-            @Override
-            public FileOutputStream onCompleted(Response response)
-                    throws Exception {
-                return stream;
-            }
-        });
+                @Override
+                public FileOutputStream onCompleted(Response response)
+                        throws Exception {
+                    return stream;
+                }
+            });
+        }catch (FileNotFoundException e){
+            System.out.println("Audio no encontrado");
+        }
     }
 
     /*private static void oggPlayer(){

@@ -44,6 +44,44 @@
             <version>1.0.3.3</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.gagravarr/vorbis-java-core -->
+        <dependency>
+            <groupId>org.gagravarr</groupId>
+            <artifactId>vorbis-java-core</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.stephengold/j-ogg-all -->
+        <dependency>
+            <groupId>com.github.stephengold</groupId>
+            <artifactId>j-ogg-all</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.asynchttpclient</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>PokeApiJsooner</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+
     </dependencies>
 
 </project>

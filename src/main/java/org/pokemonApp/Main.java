@@ -1,7 +1,6 @@
 package org.pokemonApp;
 
 import com.google.gson.Gson;
-import org.asynchttpclient.*;
 import java.net.URL;
 import java.util.Scanner;
 import java.io.*;
@@ -29,6 +28,7 @@ public class Main {
 
     private static void menu(PokemonData p){
         Scanner tc = new Scanner(System.in);
+        HTMLGenerator.generarHTML(p);
         informacionPokemon(p);
         Imagen.descargarImagen(p);
         OggPlayer.descargarOgg(p);
@@ -66,6 +66,17 @@ public class Main {
         }
         System.out.println();
     }
+
+    /*private static void imprimirPokedex(){
+
+        try{
+            for(int i = 1; i <= 1025; i++){
+
+            }
+        }catch (FileNotFoundException e){
+            System.out.println("Pokemon no encontrado");
+        }
+    }*/
 
     private static void informacionPokemon(PokemonData p){
         System.out.printf("Nombre pokemon(nº Pokedex): %s(%s)\n", p.name,p.id);
